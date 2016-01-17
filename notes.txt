@@ -1,0 +1,13 @@
+p3dviewer 17/01/2015
+
+Overview
+--------
+
+* build a python module that can be integrated into psrchive
+* module name p3d2x3d
+* module purpose:
+  - view stokes I, V, Q, U in 3D interactively
+  - create x3d file of the stokes parameters
+  - takes a pulsar archive (.ar) file as input
+  - output is an x3d format file that can be loaded into an x3d file viewer
+
