@@ -1,11 +1,16 @@
 /*
- * p3d2x3d: This program outputs p3d visualisations in x3d format for the web
+ * p3d2x3d
  *
- * LT and WvS November 2015
+ * This program writes p3d visualisations in X3D format 
+ * for X3D enabled web browsers and X3D viewers
  *
- * To compile:
+ * LT November 2015
+ *
+ * To compile: OSX El Capitan
  * $ g++ -o p3d2x3d p3d2x3d.c -stdlib=libstdc++ `psrchive --cflags --ldflags`
- * *
+ *
+ * Other: 
+ * $ g++ -o p3d2x3d p3d2x3d.c `psrchive --cflags --ldflags`
  */
 
 #include "Pulsar/Archive.h"
@@ -102,12 +107,10 @@ int main (int argc, char** argv)
   /* Print file details to stdout */
   cout << "-- p3d2x3d --" << endl;
   cout << "Input file name: " << infile << endl;
-  cout << "X3D output file name: " << strfilename << endl;
   cout << "Source: " << strjname << endl;
   cout << "Centre frequency: " << cfreq << endl;
   cout << "NBIN: " << N << endl;
-  cout << "NCHAN: " << ichan << endl;
-  cout << "NSUB: " << isub << endl;
+  cout << "X3D output written to: " << strfilename << endl;
   
   /* Write xml header */
   outfile << "<X3D profile=\"Immersive\" version=\"3.2\" width=\"400px\" height=\"400px\">" << endl;
