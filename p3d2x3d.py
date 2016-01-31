@@ -225,7 +225,7 @@ draw(y_cone_transform, 'Cone', blue_rgb, blue_rgb, '0', '0.1', '0.05')
 
 """Add the label to the Stokes V vector"""
 y_label_transform = ET.SubElement(y_group, 'Transform', \
-                                  translation='0 0.8 0')
+                                  translation='0 1.2 0')
 y_billboard = ET.SubElement(y_label_transform, 'Billboard')
 label(y_billboard, 'Text', blue_rgb, blue_rgb, '0', '"V"', '"SANS"', '0.2', \
       '"MIDDLE" "MIDDLE"')
