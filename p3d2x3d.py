@@ -188,7 +188,7 @@ root = ET.Element('X3D', profile='Immersive', version='3.2', \
                   width='400px', height='400px')
 scene = ET.SubElement(root, 'Scene')
 
-"""Add title"""
+"""Add the title"""
 title_label_transform = ET.SubElement(scene, 'Transform', \
                                       translation='0 2 0')
 title_billboard = ET.SubElement(title_label_transform, 'Billboard')
