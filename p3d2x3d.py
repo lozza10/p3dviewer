@@ -2,7 +2,7 @@
 
 """p3d2x3d.py
 
-This program writes an X3D format file of PSRCHIVE 'p3d-style'
+This program writes HTML and X3D format files of PSRCHIVE 'p3d-style'
 polarisation data for 3D visualsation in X3D enabled web browsers 
 and X3D viewers
 
@@ -113,7 +113,7 @@ def label(root_element, shape_type, emissive_colour, diffuse_colour, \
 
 """Parse command-line arguments"""
 parser = argparse.ArgumentParser(usage='p3d2x3d.py file\n'
-         '\nThis program writes an X3D format file of PSRCHIVE p3d-style\n'
+         '\nThis program writes HTML and X3D format files of PSRCHIVE p3d-style\n'
          'polarisation data for 3D visualsation in X3D enabled web browsers\n' 
          'and X3D viewers\n'
          '\nCopyright (C) 2016  Lawrence Toomey\n'
@@ -171,21 +171,22 @@ src = ar.get_source()
 """Get the number of bins"""
 nbin = ar.get_nbin()
 
-"""Define the output file name and open for writing"""
-out_file_name = src + '.x3d'
-out_file = open(out_file_name, 'w')
+"""Define the output file names and open for writing"""
+x3d_file_name = src + '.x3d'
+html_file_name = src + '.html'
+x3d_file = open(x3d_file_name, 'w')
+html_file = open(html_file_name, 'w')
 
 """Print file details to stdout"""
 print '\n-- p3d2x3d --'
-print 'Input file name:       %s'  %in_file
-print 'Source:                %s'  %src
-print 'Centre frequency:      %f'  %cfreq
-print 'No. of polarisations:  %d'  %npol
-print 'No. of bins:           %d'  %nbin
+print 'Input file name:        %s' %in_file
+print 'Source:                 %s' %src
+print 'Centre frequency:       %f' %cfreq
+print 'No. of polarisations:   %d' %npol
+print 'No. of bins:            %d' %nbin
 
 """Build the X3DOM"""
-root = ET.Element('X3D', profile='Immersive', version='3.2', \
-                  width='400px', height='400px')
+root = ET.Element('X3D', profile='Immersive', version='3.2')
 scene = ET.SubElement(root, 'Scene')
 
 """Add the title"""
@@ -273,10 +274,34 @@ for ibin in range(nbin):
 
 coord = ET.SubElement(line_set, 'Coordinate', point=str_points) 
 
-"""Write the X3D dom to the output file"""
+"""Write the X3DOM to the output x3d file"""
 tree = ET.ElementTree(root)
-tree.write(out_file, pretty_print=True, xml_declaration=False)
+tree.write(x3d_file, pretty_print=True, xml_declaration=False)
+
+"""Write the HTML markup to the output html file"""
+content = """<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv='Content-Type' content='text/html;charset=utf-8' />
+    <title>""" + src + """</title>
+    <script type='text/javascript' src='http://www.x3dom.org/download/x3dom.js'></script>
+    <style>
+      body {background-color: black;}
+    </style>
+  </head>
+  <body>
+    <x3d width='100%' height='50%'> 
+      <scene>
+        <inline url='""" + x3d_file_name + """'></inline> 
+      </scene> 
+    </x3d> 
+  </body>
+</html>
+"""
+html_file.write(content)
     
-"""Close the output file"""
-print 'X3D output written to: %s\n' %out_file_name
-out_file.close()
+"""Close the output files"""
+print 'X3D output written to:  %s'  %x3d_file_name
+print 'HTML output written to: %s\n' %html_file_name
+x3d_file.close()
+html_file.close()
