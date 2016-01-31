@@ -172,18 +172,13 @@ src = ar.get_source()
 nbin = ar.get_nbin()
 
 """Define the output file name and open for writing"""
-# need regex match for J in source name here
-# if source unknown UNDEF ?
-# outfilename = in_file + '.x3d'
-# do stuff
-#else:
-out_file_name = 'J' + src + '.x3d'
+out_file_name = src + '.x3d'
 out_file = open(out_file_name, 'w')
 
 """Print file details to stdout"""
 print '\n-- p3d2x3d --'
 print 'Input file name:       %s'  %in_file
-print 'Source:                J%s' %src
+print 'Source:                %s'  %src
 print 'Centre frequency:      %f'  %cfreq
 print 'No. of polarisations:  %d'  %npol
 print 'No. of bins:           %d'  %nbin
@@ -192,6 +187,14 @@ print 'No. of bins:           %d'  %nbin
 root = ET.Element('X3D', profile='Immersive', version='3.2', \
                   width='400px', height='400px')
 scene = ET.SubElement(root, 'Scene')
+
+"""Add title"""
+title_label_transform = ET.SubElement(scene, 'Transform', \
+                                      translation='0 2 0')
+title_billboard = ET.SubElement(title_label_transform, 'Billboard')
+label(title_billboard, 'Text', white_rgb, white_rgb, '0', \
+      '"'  + src + ' ' + str(cfreq) + 'MHz"', '"SANS"', '0.2', \
+      '"MIDDLE" "MIDDLE"')
 
 """Draw the cylinder for the Stokes U (X-axis) vector"""
 x_transform = ET.SubElement(scene, 'Transform', rotation='0 0 1 -1.57079')
