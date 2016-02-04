@@ -1,0 +1,9 @@
+README for p3dviewer
+04/02/2016
+
+This repository contains programs to write HTML and X3D format files 
+of PSRCHIVE 'p3d-style' polarisation data for 3D visualsation in 
+WebGL-enabled web browsers and X3D viewers
+
+Copyright (C) 2016  Lawrence Toomey
+
